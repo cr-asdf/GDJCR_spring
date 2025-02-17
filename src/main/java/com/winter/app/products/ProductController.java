@@ -20,6 +20,8 @@ public class ProductController {
 		System.out.println("Product Detail");
 		return "products/detail";
 	}
+	
+	
 
 
 }
