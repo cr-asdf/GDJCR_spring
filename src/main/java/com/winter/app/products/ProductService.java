@@ -10,27 +10,12 @@ public class ProductService {
 	
 	@Autowired
 	private ProductDAO productDAO;
-	
-	
-	
-	{
-		productDAO = new ProductDAO();
-	}
-	
-	public ProductService() {
-		productDAO = new ProductDAO();
-	}
-	
-	public ProductService(@Autowired ProductDAO productDAO) {
-		this.productDAO = productDAO;
-	}
-	
-	public void setProductDAO(@Autowired ProductDAO productDAO) {
-		this.productDAO = productDAO;
-	}
-	
-	
 
+	
+	//detail
+	public ProductDTO getDetail(ProductDTO productDTO)throws Exception{
+		return productDAO.getDetail(productDTO);
+	}
 	
 	//list
 	public List<ProductDTO> getList()throws Exception{
@@ -43,7 +28,7 @@ public class ProductService {
 	public int add(ProductDTO productDTO)throws Exception{
 		//dao 호출 코드
 		
-		return 1;
+		return productDAO.add(productDTO);
 		
 	}
 

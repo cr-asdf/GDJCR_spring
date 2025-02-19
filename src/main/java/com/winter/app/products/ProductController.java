@@ -36,11 +36,14 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public ModelAndView getDetail()throws Exception{
+	public ModelAndView getDetail(ProductDTO productDTO)throws Exception{
 		System.out.println("Product Detail");
+		
+		productDTO = productService.getDetail(productDTO);
+		
 		ModelAndView mv = new ModelAndView();
 		//model
-		mv.addObject("속성명", "값");
+		mv.addObject("dto", productDTO);
 		//view
 		mv.setViewName("products/detail");
 		return mv;
@@ -52,7 +55,7 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public ModelAndView add2(ProductDTO productDTO)throws Exception{
+	public ModelAndView add(ProductDTO productDTO)throws Exception{
 		/**
 		 * 파라미터 처리 방법
 		 * 1.모든 요청 정보는 Request에 있다.(URL, METHOD, PARAMETER, COOKIE...)
