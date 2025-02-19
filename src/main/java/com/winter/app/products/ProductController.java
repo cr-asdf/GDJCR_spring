@@ -1,11 +1,15 @@
 package com.winter.app.products;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/products/*")
@@ -14,31 +18,46 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	/**
+	 * Model -> 
+	 * requestScope 와 라이프사이클이 비슷
+	 * 응답이 발생하면 소멸
+	 * request와 비슷한 일을 함
+	 * java -> jsp로 데이터를 전달 할 때 사용
+	 * */
+	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public String getList()throws Exception{
+	public void getList(Model model)throws Exception{
 		System.out.println("Product List");
-		productService.getList();
-		return "products/list";
+		List<ProductDTO> ar = productService.getList();
+		
+		model.addAttribute("list", ar);
+		
 	}
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public String getDetail()throws Exception{
+	public ModelAndView getDetail()throws Exception{
 		System.out.println("Product Detail");
-		return "products/detail";
+		ModelAndView mv = new ModelAndView();
+		//model
+		mv.addObject("속성명", "값");
+		//view
+		mv.setViewName("products/detail");
+		return mv;
 	}
 	
 	@RequestMapping(value = "add", method = RequestMethod.GET)
-	public String add()throws Exception{
-		return "products/add";
+	public ModelAndView add(ModelAndView mv)throws Exception{
+		return mv;
 	}
 
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public String add2(ProductDTO productDTO)throws Exception{
+	public ModelAndView add2(ProductDTO productDTO)throws Exception{
 		/**
 		 * 파라미터 처리 방법
 		 * 1.모든 요청 정보는 Request에 있다.(URL, METHOD, PARAMETER, COOKIE...)
 		 *  메서드의 매개변수로 HttpServletRequest request 선언 
-		 *  equest.getParameter("")
+		 *  request.getParameter("")
 		 *  
 		 * 2.매개변수로 파라미터이름과 동일한 변수명, 동일한 타입명으로 선언
 		 * 
@@ -46,10 +65,12 @@ public class ProductController {
 		 *   파라미터의 이름과 타입이 DTO의 Setter의 이름과 동일   
 		 * */
 		
-		System.out.println("ProductName : "+productDTO.getProductName());
-		System.out.println("ProductRate : "+productDTO.getProductRate());
+		System.out.println(productDTO.getProductDate().toString());
 		
-		return "products/add";
+		int result = productService.add(productDTO);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:./list");
+		return mv;
 	}
 	
 	

@@ -15,6 +15,26 @@
 	<div class="row col-md-8 offset-md-2">
 		<!-- contents 내용 작성 -->
 		<h1>Product List Page</h1>
+		
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Num</th>
+					<th>상품명</th>
+					<th>이자율</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${list}" var="v">
+				<tr>
+					<td>${v.productNum}</td>
+					<td>${v.productName}</td>
+					<td>${v.productRate}</td>
+				</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		
 		<a href="./add" class="btn btn-outline-success">상품 등록</a>
 	</div>
 </div>
