@@ -27,6 +27,9 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value = "login", method = RequestMethod.GET)
+	public void login()throws Exception{}
+	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(UserDTO userDTO, HttpSession session, Model model)throws Exception{
 		userDTO = userService.login(userDTO);
