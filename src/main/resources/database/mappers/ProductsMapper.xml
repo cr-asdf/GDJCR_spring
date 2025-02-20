@@ -7,7 +7,7 @@
   <!-- 사용하는 DAO의 패키지명.클래스명을 주로 사용 -->
   <mapper namespace="com.winter.app.products.ProductDAO">
   	<!-- DAO의 메서드명을 ID로 사용 -->
-  	<select id="getDetail" resultType="com.winter.app.products.ProductDTO" parameterType="com.winter.app.products.ProductDTO">
+  	<select id="getDetail" resultType="ProductDTO" parameterType="ProductDTO">
   		<!-- ResultType => 컬럼명과 DTO의 setter의 이름과 같은 것을 맵핑 -->
   		<!-- ? 값 #{getter의 이름, DTO가 아닐때는 변수명} -->
   		<!-- map #{map의 키}, 배열또는리스트 #{index번호} -->

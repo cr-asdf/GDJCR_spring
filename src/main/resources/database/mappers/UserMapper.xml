@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.winter.app.users.UserDAO">
+  
+  	<insert id="join" parameterType="UserDTO">
+  		INSERT INTO USERS
+  		VALUES (#{userName}, #{password}, #{name}, #{phone}, #{email})
+  	</insert>
+  	
+  	<select id="getDetail" parameterType="UserDTO" resultType="UserDTO">
+  		SELECT * FROM USERS
+  		WHERE USERNAME=#{userName}
+  	</select>
+	
+  </mapper>
