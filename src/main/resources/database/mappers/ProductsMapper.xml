@@ -14,6 +14,14 @@
   		SELECT * FROM PRODUCTS WHERE PRODUCTNUM=#{productNum}
   	</select>
   	
+  	<select id="test" resultType="java.lang.Long">
+  		SELECT COUNT(PRODUCTNUM) FROM PRODUCTS
+  	</select>
+  	
+  	<select id="test2" resultType="java.util.Map">
+  		SELECT MAX(PRODUCTRATE)AS M, MIN(PRODUCTRATE), COUNT(PRODUCTNUM) FROM PRODUCTS
+  	</select>
+  	
   	<select id="getList" resultType="com.winter.app.products.ProductDTO">
   		SELECT * FROM PRODUCTS ORDER BY PRODUCTNUM DESC
   	</select>
@@ -22,6 +30,8 @@
   		INSERT INTO PRODUCTS (PRODUCTNUM, PRODUCTNAME, PRODUCTRATE, PRODUCTDATE, PRODUCTDETAIL)
   		VALUES (PRODUCTNUM_SEQ.NEXTVAL, #{productName},#{productRate},#{productDate}, #{productDetail})
   	</insert>
+  	
+  	
   	
   	
   	

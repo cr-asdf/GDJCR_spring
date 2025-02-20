@@ -45,5 +45,26 @@ public class ProductDAO {
 			
 		return sqlSession.selectList(NAMESPACE+"getList");
 	}
+	
+	
+	public Long test()throws Exception{
+		return sqlSession.selectOne(NAMESPACE+ "test");
+	}
+	
+	public Map<String, Object> test2()throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"test2");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
