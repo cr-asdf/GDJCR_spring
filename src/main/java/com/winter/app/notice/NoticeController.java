@@ -1,5 +1,6 @@
 package com.winter.app.notice;
 
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -25,8 +26,25 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="detail", method = RequestMethod.GET)
-	public void getDetail(NoticeDTO noticeDTO, Model model)throws Exception{
-		noticeDTO= noticeService.getDetail(noticeDTO);
+	public void getDetail(NoticeDTO noticeDTO, Model model, HttpSession session)throws Exception{
+		//"board" : set(글번호들,,)
+		Object obj = session.getAttribute("board");
+		boolean check=false;
+		if(obj != null) {
+			HashSet<Long> ar = (HashSet<Long>)obj;
+			if(!ar.contains(noticeDTO.getBoardNum())) {
+				check=true;
+			}else {
+				ar.add(noticeDTO.getBoardNum());
+			}
+		}else {
+			HashSet<Long> num = new HashSet<Long>();
+			num.add(noticeDTO.getBoardNum());
+			session.setAttribute("board", num);
+			check=true;
+		}
+		
+		noticeDTO= noticeService.getDetail(noticeDTO, check);
 		model.addAttribute("dto", noticeDTO);
 	}
 	@RequestMapping(value="add", method = RequestMethod.GET)
@@ -46,7 +64,7 @@ public class NoticeController {
 	
 	@RequestMapping(value="update", method = RequestMethod.GET)
 	public void update(NoticeDTO noticeDTO, Model model)throws Exception{
-		noticeDTO = noticeService.getDetail(noticeDTO);
+		noticeDTO = noticeService.getDetail(noticeDTO, false);
 		model.addAttribute("dto", noticeDTO);
 	}
 	

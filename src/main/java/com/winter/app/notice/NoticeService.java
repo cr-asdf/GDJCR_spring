@@ -15,8 +15,10 @@ public class NoticeService {
 		return noticeDAO.getList();
 	}
 	
-	public NoticeDTO getDetail(NoticeDTO noticeDTO)throws Exception{
-		noticeDAO.updateHit(noticeDTO);
+	public NoticeDTO getDetail(NoticeDTO noticeDTO, boolean check)throws Exception{
+		if(check) {
+			noticeDAO.updateHit(noticeDTO);
+		}
 		return noticeDAO.getDetail(noticeDTO);
 	}
 	
