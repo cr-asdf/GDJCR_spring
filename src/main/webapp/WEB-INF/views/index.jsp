@@ -12,7 +12,7 @@
 	<c:import url="./templates/layout_header.jsp"></c:import>
 	
 	<div class="continer-fluid my-5">
-		<div class="row col-md-8 offset-md-2">
+		<div class="row col-md-8 offset-md-2" style="min-height: 60vh">
 			<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
 			  <div class="carousel-inner">
 			    <div class="carousel-item active">

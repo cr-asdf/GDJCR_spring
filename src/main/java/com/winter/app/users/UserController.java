@@ -41,6 +41,30 @@ public class UserController {
 		model.addAttribute("path","./login");
 		return "commons/result";
 	}
+	
+	@RequestMapping(value="logout", method = RequestMethod.GET)
+	public String logout(HttpSession session)throws Exception{
+		//1. user속성 null
+		session.setAttribute("user", null);
+		
+		//2. user속성 삭제
+		session.removeAttribute("user");
+		
+		//3. session 삭제(소멸), 유지시간을 0으로 세팅
+		session.invalidate();
+		
+		return "redirect:../";
+		
+	}
+	
+	@RequestMapping(value = "mypage", method = RequestMethod.GET)
+	public void mypage()throws Exception{
+		//1. Session에 user정보
+		
+		//2. 유저정보를 다시 조회 해서 jsp로 보내는 방법
+		
+		
+	}
 
 }
 

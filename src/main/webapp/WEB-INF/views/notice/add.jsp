@@ -12,31 +12,23 @@
 <c:import url="/WEB-INF/views/templates/layout_header.jsp"></c:import>
 
 <div class="continer-fluid my-5">
-	<div class="row col-md-8 offset-md-2" style="min-height: 60vh" >
+	<div class="row col-md-8 offset-md-2">
 		<!-- contents 내용 작성 -->
-		<h1>Product List Page</h1>
-		
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Num</th>
-					<th>상품명</th>
-					<th>이자율</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${list}" var="v">
-				<tr>
-					<td>${v.productNum}</td>
-					<td><a href="./detail?productNum=${v.productNum}">${v.productName}</a></td>
-					<td>${v.productRate}</td>
-				</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<div>
-		<a href="./add" class="btn btn-outline-success">상품 등록</a>
-		</div>
+		<h1>Notice Add</h1>
+		<form action="./add" method="post">
+		  <div class="mb-3">
+		    <label for="boardTitle" class="form-label">Title</label>
+		    <input type="text" name="boardTitle" placeholder="글제목" class="form-control" id="boardTitle">
+		  </div>
+		  
+		  <div class="mb-3">
+			<label for="boardContents" class="form-label">Contents</label>
+			<textarea class="form-control" name="boardContents" id="boardContents" rows="10"></textarea>
+		   </div>		  	  	  
+
+
+		  <button type="submit" class="btn btn-primary">글작성</button>
+		</form>	
 	</div>
 </div>
 
