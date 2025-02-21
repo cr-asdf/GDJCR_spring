@@ -26,6 +26,11 @@
   		DELETE NOTICE WHERE BOARDNUM =#{boardNum}
   	</delete>
   	
+  	<update id="updateHit" parameterType="NoticeDTO">
+  		UPDATE NOTICE SET BOARDHIT=BOARDHIT+1
+  		WHERE BOARDNUM=#{boardNum}
+  	</update>
+  	
   	
   
 	

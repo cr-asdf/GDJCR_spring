@@ -16,6 +16,7 @@ public class NoticeService {
 	}
 	
 	public NoticeDTO getDetail(NoticeDTO noticeDTO)throws Exception{
+		noticeDAO.updateHit(noticeDTO);
 		return noticeDAO.getDetail(noticeDTO);
 	}
 	
