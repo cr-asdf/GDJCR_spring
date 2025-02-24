@@ -2,6 +2,8 @@ package com.winter.app.products;
 
 import static org.junit.Assert.*;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.After;
@@ -36,6 +38,41 @@ public class ProductDAOTest extends SampleTestCase {
 	@After
 	public void ae() {
 		System.out.println("개별 테스트 실행 후");
+	}
+	
+	@Test()
+	public void addTest()throws Exception{
+		ProductDTO productDTO = new ProductDTO();
+		Calendar ca = Calendar.getInstance();
+		
+		
+		for(int i=0;i<110;i++) {
+		
+			productDTO.setProductDate(new Date(ca.getTimeInMillis()));
+			productDTO.setProductDetail("ProductDetail"+i);
+			productDTO.setProductName("ProductName"+i);
+			
+			double r = Math.random();//0.0 - 1.0
+			
+			r = r*100;
+			
+			int ri = (int)r;
+			
+			r = ri/100.0;
+			
+			productDTO.setProductRate(r);
+			
+			productDAO.add(productDTO);
+			
+			if(i%10==0) {
+				Thread.sleep(500);
+			}
+			
+			System.out.println("Finish");
+			
+		}
+		
+		
 	}
 	
 	@Test

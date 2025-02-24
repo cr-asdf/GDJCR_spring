@@ -22,13 +22,54 @@
   		SELECT MAX(PRODUCTRATE)AS M, MIN(PRODUCTRATE), COUNT(PRODUCTNUM) FROM PRODUCTS
   	</select>
   	
-  	<select id="getList" resultType="com.winter.app.products.ProductDTO">
-  		SELECT * FROM PRODUCTS ORDER BY PRODUCTNUM DESC
+  	<select id="getTotalCount" resultType="Long">
+  		SELECT COUNT(PRODUCTNUM) FROM PRODUCTS
+  	</select>
+  	
+  	<select id="getList" parameterType="Pager"  resultType="com.winter.app.products.ProductDTO">
+		SELECT * FROM
+			(SELECT ROWNUM R, M.* FROM
+				(
+					SELECT * 
+					FROM PRODUCTS
+					WHERE 
+					<!-- #사용하지 않음 -->
+					<choose>
+						<when test="kind=='k2'">
+							PRODUCTDETAIL LIKE '%'||#{search}||'%'
+						</when>
+						<when test="kind=='k3'">
+							PRODUCTNAME LIKE '%'||#{search}||'%'
+							OR
+							PRODUCTDETAIL LIKE '%'||#{search}||'%'						
+						</when>
+						<otherwise>
+							PRODUCTNAME LIKE '%'||#{search}||'%'
+						</otherwise>
+					
+					</choose>
+					
+<!-- 					<if test="kind == 'k1'">
+					PRODUCTNAME LIKE '%'||#{search}||'%'
+					</if>
+					<if test="kind=='k2'">
+					PRODUCTDETAIL LIKE '%'||#{search}||'%'
+					</if>
+					
+					<if test="kind=='k3'">
+					PRODUCTNAME LIKE '%'||#{search}||'%'
+					OR
+					PRODUCTDETAIL LIKE '%'||#{search}||'%'	
+					</if>  -->
+					ORDER BY PRODUCTNUM DESC
+				) M
+			)
+		WHERE R BETWEEN #{startNum} AND #{endNum}
   	</select>
   	
   	<insert id="add" parameterType="com.winter.app.products.ProductDTO">
   		INSERT INTO PRODUCTS (PRODUCTNUM, PRODUCTNAME, PRODUCTRATE, PRODUCTDATE, PRODUCTDETAIL)
-  		VALUES (PRODUCTNUM_SEQ.NEXTVAL, #{productName},#{productRate},#{productDate}, #{productDetail})
+  		VALUES (PRODUCT_SEQ.NEXTVAL, #{productName},#{productRate},#{productDate}, #{productDetail})
   	</insert>
   	
   	
