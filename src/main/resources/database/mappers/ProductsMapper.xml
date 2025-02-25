@@ -22,8 +22,24 @@
   		SELECT MAX(PRODUCTRATE)AS M, MIN(PRODUCTRATE), COUNT(PRODUCTNUM) FROM PRODUCTS
   	</select>
   	
-  	<select id="getTotalCount" resultType="Long">
+  	<select id="getTotalCount" parameterType="Pager" resultType="Long">
   		SELECT COUNT(PRODUCTNUM) FROM PRODUCTS
+  		WHERE PRODUCTNUM > 0 AND
+			<!-- #사용하지 않음 -->
+		<choose>
+			<when test="kind=='k2'">
+				PRODUCTDETAIL LIKE '%'||#{search}||'%'
+			</when>
+			<when test="kind=='k3'">
+				PRODUCTNAME LIKE '%'||#{search}||'%'
+				OR
+			PRODUCTDETAIL LIKE '%'||#{search}||'%'						
+			</when>
+			<otherwise>
+			PRODUCTNAME LIKE '%'||#{search}||'%'
+			</otherwise>
+			
+		</choose>
   	</select>
   	
   	<select id="getList" parameterType="Pager"  resultType="com.winter.app.products.ProductDTO">
@@ -32,7 +48,7 @@
 				(
 					SELECT * 
 					FROM PRODUCTS
-					WHERE 
+					WHERE PRODUCTNUM > 0 AND
 					<!-- #사용하지 않음 -->
 					<choose>
 						<when test="kind=='k2'">

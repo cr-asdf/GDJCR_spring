@@ -35,15 +35,10 @@ public class ProductDAO {
 //		map.put("name", name);
 		
 		return sqlSession.selectOne(NAMESPACE+"getDetail", productDTO);
-		
-		
-		
-		
-		
 	}
 	
-	public Long getTotalCount()throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"getTotalCount");
+	public Long getTotalCount(Pager pager)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getTotalCount", pager);
 	}
 	
 	//list
