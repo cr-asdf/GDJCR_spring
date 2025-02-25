@@ -22,49 +22,25 @@
   		SELECT MAX(PRODUCTRATE)AS M, MIN(PRODUCTRATE), COUNT(PRODUCTNUM) FROM PRODUCTS
   	</select>
   	
-  	<select id="getTotalCount" parameterType="Pager" resultType="Long">
-  		SELECT COUNT(PRODUCTNUM) FROM PRODUCTS
-  		WHERE PRODUCTNUM > 0 AND
-			<!-- #사용하지 않음 -->
-		<choose>
-			<when test="kind=='k2'">
-				PRODUCTDETAIL LIKE '%'||#{search}||'%'
-			</when>
-			<when test="kind=='k3'">
-				PRODUCTNAME LIKE '%'||#{search}||'%'
-				OR
-			PRODUCTDETAIL LIKE '%'||#{search}||'%'						
-			</when>
-			<otherwise>
-			PRODUCTNAME LIKE '%'||#{search}||'%'
-			</otherwise>
-			
-		</choose>
-  	</select>
-  	
-  	<select id="getList" parameterType="Pager"  resultType="com.winter.app.products.ProductDTO">
-		SELECT * FROM
-			(SELECT ROWNUM R, M.* FROM
-				(
-					SELECT * 
-					FROM PRODUCTS
-					WHERE PRODUCTNUM > 0 AND
+  	<sql id="search">
+  					<where>
+  					PRODUCTNUM > 0 AND
 					<!-- #사용하지 않음 -->
-					<choose>
-						<when test="kind=='k2'">
-							PRODUCTDETAIL LIKE '%'||#{search}||'%'
-						</when>
-						<when test="kind=='k3'">
-							PRODUCTNAME LIKE '%'||#{search}||'%'
-							OR
-							PRODUCTDETAIL LIKE '%'||#{search}||'%'						
-						</when>
-						<otherwise>
-							PRODUCTNAME LIKE '%'||#{search}||'%'
-						</otherwise>
-					
-					</choose>
-					
+						<choose>
+							<when test="kind=='k2'">
+								PRODUCTDETAIL LIKE '%'||#{search}||'%'
+							</when>
+							<when test="kind=='k3'">
+								PRODUCTNAME LIKE '%'||#{search}||'%'
+								OR
+								PRODUCTDETAIL LIKE '%'||#{search}||'%'						
+							</when>
+							<otherwise>
+								PRODUCTNAME LIKE '%'||#{search}||'%'
+							</otherwise>
+						
+						</choose>
+					</where>
 <!-- 					<if test="kind == 'k1'">
 					PRODUCTNAME LIKE '%'||#{search}||'%'
 					</if>
@@ -77,6 +53,22 @@
 					OR
 					PRODUCTDETAIL LIKE '%'||#{search}||'%'	
 					</if>  -->
+  	
+  	</sql>
+  	
+  	
+  	<select id="getTotalCount" parameterType="Pager" resultType="Long">
+  		SELECT COUNT(PRODUCTNUM) FROM PRODUCTS
+ 		<include refid="search"></include>
+  	</select>
+  	
+  	<select id="getList" parameterType="Pager"  resultType="com.winter.app.products.ProductDTO">
+		SELECT * FROM
+			(SELECT ROWNUM R, M.* FROM
+				(
+					SELECT * 
+					FROM PRODUCTS
+					<include refid="search"></include>
 					ORDER BY PRODUCTNUM DESC
 				) M
 			)
