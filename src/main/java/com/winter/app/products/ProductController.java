@@ -80,6 +80,18 @@ public class ProductController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	public void update(ProductDTO productDTO, Model model)throws Exception{
+		productDTO = productService.getDetail(productDTO);
+		model.addAttribute("dto", productDTO);
+	}
+	
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public void delete(ProductDTO productDTO, Model model)throws Exception{
+		productDTO = productService.getDetail(productDTO);
+		model.addAttribute("dto", productDTO);
+	}
+	
 	
 
 

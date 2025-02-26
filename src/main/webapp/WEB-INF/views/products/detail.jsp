@@ -19,10 +19,22 @@
 		<h3>${dto.productName}</h3>
 		<h3>${dto.productRate}</h3>
 		
+		<div>
+			<form id="frm" action="/test">
+				<input type="hidden" name="productNum" value="${dto.productNum}">
+				<button type="button" id="up">수정</button>
+				<button type="button" id="del">삭제</button>
+			</form>
+
+		</div>
+
 	</div>
 </div>
 
+
+
 <c:import url="/WEB-INF/views/templates/layout_footer.jsp"></c:import>
 <c:import url="/WEB-INF/views/templates/boot_js.jsp"></c:import>
+<script src="../resources/js/detail.js"></script>
 </body>
 </html>
