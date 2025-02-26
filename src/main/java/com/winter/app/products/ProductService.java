@@ -25,6 +25,7 @@ public class ProductService {
 //		pager.setPage(page);
 		
 		
+		pager.setKind("k1");
 		
 		
 		Long totalCount = productDAO.getTotalCount(pager);

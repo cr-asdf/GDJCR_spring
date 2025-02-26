@@ -40,6 +40,10 @@ public class Pager {
 	}
 	
 	public void make(Long totalCount) {
+		if(totalCount<1) {
+			totalCount=1L;
+		}
+		
 		//1. TotalPage
 		Long totalPage = totalCount/10;
 		if(totalCount%10 != 0) {
