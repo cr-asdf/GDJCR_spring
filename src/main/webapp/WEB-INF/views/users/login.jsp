@@ -26,12 +26,13 @@
 		    <input type="password" name="password" class="form-control" id="password">
 		  </div>	
 
-		  <button type="button" class="btn btn-primary">로그인</button>
+		  <button type="button" class="btn btn-primary" id="login_button">로그인</button>
 		</form>	
 	</div>
 </div>
 
 <c:import url="/WEB-INF/views/templates/layout_footer.jsp"></c:import>
 <c:import url="/WEB-INF/views/templates/boot_js.jsp"></c:import>
+<script src="/resources/js/login.js"></script>
 </body>
 </html>
