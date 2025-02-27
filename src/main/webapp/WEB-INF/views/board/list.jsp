@@ -30,7 +30,14 @@
 				<c:forEach items="${list}" var="v">
 				<tr>
 					<td>${v.boardNum}</td>
-					<td><a href="./detail?boardNum=${v.boardNum}">${v.boardTitle}</a></td>
+					<td>
+						<a href="./detail?boardNum=${v.boardNum}">
+							<c:catch>
+								<c:forEach begin="1" end="${v.boardDepth}">--</c:forEach>
+							</c:catch>
+							${v.boardTitle}
+						</a>
+					</td>
 					<td>${v.userName}</td>
 					<td>${v.boardDate}</td>
 					<td>${v.boardHit}</td>
