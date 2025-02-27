@@ -15,17 +15,15 @@
 	<div class="row col-md-8 offset-md-2">
 		<!-- contents 내용 작성 -->
 		<h1>Notice Add</h1>
-		<form action="./update" method="post">
-		  <input type="hidden" name="boardNum" value="${dto.boardNum}">
-		  		  
+		<form action="" method="post">
 		  <div class="mb-3">
 		    <label for="boardTitle" class="form-label">Title</label>
-		    <input type="text" value="${dto.boardTitle}" name="boardTitle" placeholder="글제목" class="form-control" id="boardTitle">
+		    <input type="text" name="boardTitle" placeholder="글제목" class="form-control" id="boardTitle">
 		  </div>
 		  
 		  <div class="mb-3">
 			<label for="boardContents" class="form-label">Contents</label>
-			<textarea class="form-control" name="boardContents" id="boardContents" rows="10">${dto.boardContents}</textarea>
+			<textarea class="form-control" name="boardContents" id="boardContents" rows="10"></textarea>
 		   </div>		  	  	  
 
 

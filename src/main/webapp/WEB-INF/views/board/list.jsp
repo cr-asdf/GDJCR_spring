@@ -14,41 +14,33 @@
 <div class="continer-fluid my-5">
 	<div class="row col-md-8 offset-md-2">
 		<!-- contents 내용 작성 -->
-		<h1>Notice Detail Page</h1>
+		<h1>${kind}</h1>
 		
-		<table class="table table-dark ">
+		<table class="table table-striped">
 			<thead>
-				<tr >
+				<tr>
+					<th>NO</th>
 					<th>TITLE</th>
 					<th>WRITER</th>
 					<th>DATE</th>
 					<th>HIT</th>
 				</tr>
 			</thead>
-			
 			<tbody>
+				<c:forEach items="${list}" var="v">
 				<tr>
-					<td>${dto.boardTitle}</td>
-					<td>${dto.userName}</td>
-					<td>${dto.boardDate}</td>
-					<td>${dto.boardHit}</td>
+					<td>${v.boardNum}</td>
+					<td><a href="./detail?boardNum=${v.boardNum}">${v.boardTitle}</a></td>
+					<td>${v.userName}</td>
+					<td>${v.boardDate}</td>
+					<td>${v.boardHit}</td>
 				</tr>
-
-		
+				</c:forEach>
+			</tbody>
 		</table>
-		<div class="alert alert-primary" role="alert" style="min-height: 60vh">
-		  ${dto.boardContents}
-		</div>
-	
-	
-
-	
-		
 		<div>
-			<a href="./update?boardNum=${dto.boardNum}" class="btn btn-outline-success">수정</a>
-			<a href="./delete?boardNum=${dto.boardNum}" class="btn btn-outline-danger">삭제</a>
-		</div>		
-		
+		<a href="./add" class="btn btn-outline-success">글작성</a>
+		</div>
 	</div>
 </div>
 

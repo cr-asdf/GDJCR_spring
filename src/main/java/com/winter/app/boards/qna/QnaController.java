@@ -1,4 +1,4 @@
-package com.winter.app.boards.notice;
+package com.winter.app.boards.qna;
 
 import java.util.HashSet;
 import java.util.List;
@@ -13,30 +13,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.winter.app.boards.BoardDTO;
+import com.winter.app.boards.notice.NoticeDTO;
 import com.winter.app.pages.Pager;
 import com.winter.app.users.UserDTO;
 
 @Controller
-@RequestMapping(value="/notice/*")
-public class NoticeController {
+@RequestMapping(value="/qna/*")
+public class QnaController {
+	
 	@Autowired
-	private NoticeService noticeService;
+	private QnaService qnaService;
 	
 	@ModelAttribute("kind")
 	public String getKind() {
-		return "Notice";
+		return "Qna";
 	}
+	
+	
 	
 	@RequestMapping(value="list", method = RequestMethod.GET)
 	public String getList(Pager pager, Model model)throws Exception{
-		List<BoardDTO> ar= noticeService.getList(pager);
+		List<BoardDTO> ar= qnaService.getList(pager);
 		model.addAttribute("list", ar);
-		
 		return "board/list";
 	}
 	
 	@RequestMapping(value="detail", method = RequestMethod.GET)
-	public String getDetail(NoticeDTO boardDTO, Model model, HttpSession session)throws Exception{
+	public String getDetail(QnaDTO boardDTO, Model model, HttpSession session)throws Exception{
 		//"board" : set(글번호들,,)
 		Object obj = session.getAttribute("board");
 		boolean check=false;
@@ -54,7 +57,7 @@ public class NoticeController {
 			check=true;
 		}
 		
-		boardDTO= (NoticeDTO)noticeService.getDetail(boardDTO, check);
+		boardDTO= (QnaDTO)qnaService.getDetail(boardDTO, check);
 		model.addAttribute("dto", boardDTO);
 		return "board/detail";
 	}
@@ -64,25 +67,25 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="add", method = RequestMethod.POST)
-	public String add(NoticeDTO boardDTO, HttpSession session)throws Exception{
+	public String add(QnaDTO boardDTO, HttpSession session)throws Exception{
 		
 		UserDTO userDTO = (UserDTO)session.getAttribute("user");
 		boardDTO.setUserName(userDTO.getUserName());
-		int result = noticeService.add(boardDTO);
+		int result = qnaService.add(boardDTO);
 		
 		return "redirect:./list";
 	}
 	
 	@RequestMapping(value="update", method = RequestMethod.GET)
-	public String update(NoticeDTO boardDTO, Model model)throws Exception{
-		boardDTO = (NoticeDTO)noticeService.getDetail(boardDTO, false);
+	public String update(QnaDTO boardDTO, Model model)throws Exception{
+		boardDTO = (QnaDTO)qnaService.getDetail(boardDTO, false);
 		model.addAttribute("dto", boardDTO);
 		return "board/boardForm";
 	}
 	
 	@RequestMapping(value="update", method = RequestMethod.POST)
 	public String update(BoardDTO boardDTO)throws Exception{
-		int result =  noticeService.update(boardDTO);
+		int result =  qnaService.update(boardDTO);
 		
 		//return "redirect:./list";
 		return "redirect:./detail?boardNum="+boardDTO.getBoardNum();
@@ -91,7 +94,7 @@ public class NoticeController {
 	
 	@RequestMapping(value="delete", method = RequestMethod.GET)
 	public String delete(BoardDTO boardDTO, Model model)throws Exception{
-		int result = noticeService.delete(boardDTO);
+		int result = qnaService.delete(boardDTO);
 		String s = "삭제 실패";
 		if(result>0) {
 			s = "삭제 성공";
@@ -102,5 +105,6 @@ public class NoticeController {
 		return "commons/result";
 		
 	}
+	
 
 }

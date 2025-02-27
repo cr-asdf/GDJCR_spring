@@ -8,7 +8,9 @@
 	<typeAliases>
 		<typeAlias type="com.winter.app.users.UserDTO" alias="UserDTO"/>
 		<typeAlias type="com.winter.app.products.ProductDTO" alias="ProductDTO"/>
-		<typeAlias type="com.winter.app.notice.NoticeDTO" alias="NoticeDTO"/>
+		<typeAlias type="com.winter.app.boards.BoardDTO" alias="BoardDTO"/>
+		<typeAlias type="com.winter.app.boards.notice.NoticeDTO" alias="NoticeDTO"/>
+		<typeAlias type="com.winter.app.boards.qna.QnaDTO" alias="QnaDTO"/>
 		<typeAlias type="com.winter.app.pages.Pager" alias="Pager"/>
 		
 		<typeAlias type="java.util.Map" alias="Map"/>
