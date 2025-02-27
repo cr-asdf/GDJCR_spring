@@ -1,8 +1,8 @@
-package com.winter.app.notice;
+package com.winter.app.boards;
 
 import java.sql.Date;
 
-public class NoticeDTO {
+public class BoardDTO {
 	
 	private Long boardNum;
 	private String boardTitle;
@@ -10,6 +10,7 @@ public class NoticeDTO {
 	private String boardContents;
 	private Long boardHit;
 	private String userName;
+	
 	public Long getBoardNum() {
 		return boardNum;
 	}

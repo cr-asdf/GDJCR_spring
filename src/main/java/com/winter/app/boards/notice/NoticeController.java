@@ -1,4 +1,4 @@
-package com.winter.app.notice;
+package com.winter.app.boards.notice;
 
 import java.util.HashSet;
 import java.util.List;
