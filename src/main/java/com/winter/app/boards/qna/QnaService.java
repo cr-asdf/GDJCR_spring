@@ -1,4 +1,4 @@
-package com.winter.app.boards.notice;
+package com.winter.app.boards.qna;
 
 import java.util.List;
 
@@ -10,32 +10,32 @@ import com.winter.app.boards.BoardService;
 import com.winter.app.pages.Pager;
 
 @Service
-public class NoticeService implements BoardService{
+public class QnaService implements BoardService{
 	
 	@Autowired
-	private NoticeDAO noticeDAO;
+	private QnaDAO qnaDAO;
 	
 	public List<BoardDTO> getList(Pager pager)throws Exception{
-		return noticeDAO.getList(pager);
+		return qnaDAO.getList(pager);
 	}
 	
 	public BoardDTO getDetail(BoardDTO boardDTO, boolean check)throws Exception{
 		if(check) {
-			noticeDAO.updateHit(boardDTO);
+			qnaDAO.updateHit(boardDTO);
 		}
-		return noticeDAO.getDetail(boardDTO);
+		return qnaDAO.getDetail(boardDTO);
 	}
 	
 	public int add(BoardDTO boardDTO)throws Exception{
-		return noticeDAO.add(boardDTO);
+		return qnaDAO.add(boardDTO);
 	}
 	
 	public int update(BoardDTO boardDTO)throws Exception{
-		return noticeDAO.update(boardDTO);
+		return qnaDAO.update(boardDTO);
 	}
 	
 	public int delete(BoardDTO boardDTO)throws Exception{
-		return noticeDAO.delete(boardDTO);
+		return qnaDAO.delete(boardDTO);
 	}
 
 }
