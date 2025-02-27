@@ -28,7 +28,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="list", method = RequestMethod.GET)
-	public String getList(Pager pager, Model model)throws Exception{
+	public String getList(@ModelAttribute Pager pager, Model model)throws Exception{
 		List<BoardDTO> ar= noticeService.getList(pager);
 		model.addAttribute("list", ar);
 		
@@ -36,7 +36,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="detail", method = RequestMethod.GET)
-	public String getDetail(NoticeDTO boardDTO, Model model, HttpSession session)throws Exception{
+	public String getDetail(@ModelAttribute NoticeDTO boardDTO, Model model, HttpSession session)throws Exception{
 		//"board" : set(글번호들,,)
 		Object obj = session.getAttribute("board");
 		boolean check=false;

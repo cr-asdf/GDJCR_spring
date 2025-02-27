@@ -60,6 +60,13 @@ public class QnaDAO implements BoardDAO {
 		return sqlSession.delete(NAMESPACE+"delete", boardDTO);
 	}
 	
+	public int updateStep(QnaDTO qnaDTO)throws Exception{
+		return sqlSession.update(NAMESPACE+"updateStep", qnaDTO);
+	}
+	
+	public int reply(QnaDTO qnaDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"reply", qnaDTO);
+	}
 	
 
 
