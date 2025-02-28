@@ -40,17 +40,9 @@ public class QnaService implements BoardService{
 	
 	public int reply(QnaDTO boardDTO)throws Exception{
 		//boardDTO 답글 : 이름, 제목, 내용, 부모글 : 글번호
-		QnaDTO parent = (QnaDTO) qnaDAO.getDetail(boardDTO);
-		
-		//ref 부모의 ref
-		boardDTO.setBoardRef(parent.getBoardRef());
-		//step 부모의 step+1
-		boardDTO.setBoardStep(parent.getBoardStep()+1);
-		//depth 부모의 depth+1
-		boardDTO.setBoardDepth(parent.getBoardDepth()+1);
-		
+
 		//step update
-		int result = qnaDAO.updateStep(parent);
+		int result = qnaDAO.updateStep(boardDTO);
 		
 		result = qnaDAO.reply(boardDTO);
 		
