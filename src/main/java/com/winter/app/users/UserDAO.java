@@ -15,6 +15,10 @@ public class UserDAO {
 				
 	}
 	
+	public int upload (UserFileDTO userFileDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"upload", userFileDTO);
+	}
+	
 	//user 한명의 정보를 조회,(username)
 	public UserDTO getDetail(UserDTO userDTO)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getDetail", userDTO);
