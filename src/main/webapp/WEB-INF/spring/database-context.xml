@@ -8,7 +8,6 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
 	<context:property-placeholder location="classpath:database/configs/database.properties, classpath:"/>
-
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
 		<property name="username" value="${my.user}"></property>
 		<property name="password" value="${my.pw}"></property>

@@ -1,14 +1,24 @@
 package com.winter.app.users;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.winter.app.pages.Pager;
+import com.winter.app.products.ProductDTO;
 
 @Controller
 @RequestMapping(value = "/users/*")
@@ -16,6 +26,26 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	// /users/check
+	// check
+	@RequestMapping(value = "check", method = RequestMethod.GET)
+	public String check(UserDTO userDTO, Model model)throws Exception{
+		System.out.println("ID 중복 체크");
+		System.out.println(userDTO.getUserName());
+		userDTO = userService.check(userDTO);
+		//userDTO == null 이면 가입 가능 중복 X
+		//userDTO != null 이면 가입 불가 중복 O
+		int result=0;//중복 0
+		if(userDTO==null) {
+			result = 1;//중복 X
+		}
+		
+		model.addAttribute("result", result);
+		
+		return "commons/ajaxResult";
+		
+	}
 	
 	
 	@RequestMapping(value="join", method = RequestMethod.GET)
@@ -29,7 +59,7 @@ public class UserController {
 		System.out.println(profile.getName());
 		System.out.println(profile.getOriginalFilename());
 		System.out.println(profile.getSize());
-		System.out.println(profile.isEmpty());;
+		System.out.println(profile.isEmpty());
 		System.out.println(session.getServletContext());
 		
 		int result = userService.join(userDTO, profile, session.getServletContext());
@@ -74,14 +104,61 @@ public class UserController {
 		
 		
 	}
+	
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	public void update()throws Exception{
+		
+	}
+	
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public String update(UserDTO userDTO, HttpSession session, MultipartFile profFile)throws Exception{
+		UserDTO dto = (UserDTO)session.getAttribute("user");
+		
+		userDTO.setUserName(dto.getUserName());
+		
+		int result = userService.update(userDTO, profFile, session);
+		
+		return "./mypage";
+		
+	}
+	
+	@RequestMapping(value = "addCart", method = RequestMethod.GET)
+	public String addCart(ProductDTO productDTO, HttpSession session, Model model)throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("product", productDTO);
+		map.put("user", session.getAttribute("user"));
+		int result = userService.addCart(map);
+		model.addAttribute("result", result);
+		
+		
+		return "commons/ajaxResult";
+		
+	}
+	
+	@RequestMapping(value="carts", method = RequestMethod.GET)
+	public void getCartList(Pager pager, HttpSession session, Model model)throws Exception{
+		
+		List<ProductDTO> list = userService.getCartList(pager,(UserDTO)session.getAttribute("user"));
+		
+		model.addAttribute("carts", list);
+		model.addAttribute("pager", pager);
+		
+	}
+	
+	@RequestMapping(value = "cartDelete", method = RequestMethod.GET)
+	public String cartDelete(Long [] productNum, HttpSession session, Model model)throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user", session.getAttribute("user"));
+		map.put("products", productNum);
+		
+		int result = userService.cartDelete(map);
+		
+		model.addAttribute("result", result);
+		
+		return "commons/ajaxResult";
+		
+	}
+	
+	
 
 }
-
-
-
-
-
-
-
-
-
